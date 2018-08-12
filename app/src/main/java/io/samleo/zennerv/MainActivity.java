@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.widget.Button;
 
 import android.view.View;
@@ -18,6 +19,7 @@ import android.os.Environment;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 1888;
@@ -55,10 +57,16 @@ public class MainActivity extends AppCompatActivity {
 
     public File BitmapToJPG(Bitmap bmp) {
         String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
-        String DTG = String.valueOf(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance("GMT+08:00");
+        String DTG;
+
+        DTG = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)) + String.valueOf(calendar.get(Calendar.MONTH)) + String.valueOf(calendar.get(Calendar.YEAR)) + String.valueOf(calendar.get(Calendar.HOUR))  + String.valueOf(calendar.get(Calendar.MINUTE)) +  + String.valueOf(calendar.get(Calendar.SECOND));
+
+        Log.d(DTG);
+
         OutputStream outStream = null;
         // String temp = null;
-        File file = new File(extStorageDirectory, DTG + ".jpg");
+        File file = new File(extStorageDirectory, "zenner_"+ DTG + ".jpg");
 
         try {
             outStream = new FileOutputStream(file);
